@@ -1,0 +1,39 @@
+name: wedding
+
+services:
+
+    cms:
+        image: ghcr.io/dwaring87/wedding-cms:latest
+        container_name: wedding-cms
+        volumes:
+            - database:/directus/database/
+            - uploads:/directus/uploads/
+        ports:
+            - 127.0.0.1:8055:8055
+        env_file:
+            - ./cms.env
+            - ./cms-site.env
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "wget --no-verbose --tries=1 -O - http://127.0.0.1:8055/server/health || exit 1"]
+            start_period: 1m
+
+    site:
+        depends_on:
+            - cms
+        image: ghcr.io/dwaring87/wedding-site:latest
+        container_name: wedding-site
+        ports:
+            - 127.0.0.1:3000:3000
+        env_file:
+            - ./site.env
+            - ./cms-site.env
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "curl -f http://localhost:3000/ || exit 1"]
+            start_period: 30s
+
+
+volumes:
+    database:
+    uploads:
