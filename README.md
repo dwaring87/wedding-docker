@@ -34,7 +34,7 @@ For additional environment variables that can be applied to any Directus instanc
 
 ### Website
 
-The website is a [Nuxt v4](https://nuxt.com) website that pulls its content from the CMS.  It has customizable pages and allows guests to RSVP through the website, when enabled.
+The [website](https://github.com/dwaring87/wedding-site) is a [Nuxt v4](https://nuxt.com) website that pulls its content from the CMS.  It has customizable pages and allows guests to RSVP through the website, when enabled.
 
 #### Environment Variables
 
